@@ -1,16 +1,18 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import excuteQuery from '../../lib/db'
+import executeQuery from '../../lib/db'
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     const reservation = req.body;
     console.log('.....');
     console.log(reservation);
-    const { startTime, endTime, userId, roomId } = reservation;
+    let { startTime, endTime, userId, roomId } = reservation;
+    startTime = startTime.split('.')[0] + 'Z';
+    endTime = endTime.split('.')[0] + 'Z';
 
     try {
-        const result = await excuteQuery({
-            query: 'INSERT INTO reservations(room_id, user_id, start_time, end_time) VALUES(?,?,?,?)',
-            values: [roomId, userId, `STR_TO_DATE('${startTime}', '%Y-%m-%dT%T.%fZ')`, `STR_TO_DATE('${endTime}', '%Y-%m-%dT%T.%fZ')`]
+        const result = await executeQuery({
+            query: 'INSERT INTO reservations(room_id, user_id, start_time, end_time) VALUES(?,?, STR_TO_DATE(?, \'%Y-%m-%dT%TZ\'), STR_TO_DATE(?, \'%Y-%m-%dT%TZ\'))',
+            values: [roomId, userId, startTime, endTime]
         });
         res.status(200).json({ data: result })
     } catch ( error ) {
