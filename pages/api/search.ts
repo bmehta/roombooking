@@ -1,6 +1,18 @@
 import { NextApiRequest, NextApiResponse } from 'next'
+import executeQuery from "../../lib/db";
 
-export default (_: NextApiRequest, res: NextApiResponse) => {
-    const data = ['room1', 'room2', 'room3', 'room4'];
-    res.status(200).json({ data })
+export default async (req: NextApiRequest, res: NextApiResponse) => {
+    const search = req.body;
+    let { startTime } = search;
+    startTime = startTime.split('.')[0] + 'Z';
+
+    try {
+        const result = await executeQuery({
+            query: 'select r.id, r.name from rooms r where r.id not in ( select distinct(r.id) from rooms r, reservations rr where r.id = rr.room_id && rr.start_time=STR_TO_DATE(?, \'%Y-%m-%dT%TZ\') )',
+            values: [startTime]
+        });
+        res.status(200).json({ data: result })
+    } catch ( error ) {
+        console.log( error );
+    }
 }

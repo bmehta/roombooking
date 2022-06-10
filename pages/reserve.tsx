@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { Container, Grid, Typography, Button, TextField } from '@mui/material'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -6,6 +7,8 @@ import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { addHours, getHours } from 'date-fns'
 
 const Reserve = () : JSX.Element => {
+
+    const router = useRouter()
 
     const [startTime, setStartTime] = useState<Date | null>(null);
     const [minEndTime, setMinEndTime] = useState<Date | null>(null);
@@ -29,14 +32,25 @@ const Reserve = () : JSX.Element => {
                 userId: 1
             })
         }).catch((error) => {
-            setError(error.message)
+            setError(error.message);
             return;
         });
+        router.push('/');
     };
 
     const handleSearch = async () => {
-        const response = await fetch('/api/rooms').catch((error) => {
+        const response = await fetch('/api/search', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                startTime
+            })
+        }).catch((error) => {
             setError(error.message)
+            return;
         });
 
         const jsonResponse = await response.json();
@@ -80,12 +94,15 @@ const Reserve = () : JSX.Element => {
                 </Grid>
 
                     <Grid>
-                        { results && results.map((result, index) => (
+                        { results && results.map((result) => (
                             <>
                                 <div key={result.id}>{ result.name }</div>
                                 <Button onClick={() => handleReserve(result.id)} variant="contained">Reserve</Button>
                             </>
                         )
+                        )}
+                        { results && !results.length && (
+                            <div>No results found</div>
                         )}
                     </Grid>
 

@@ -3,8 +3,6 @@ import executeQuery from '../../lib/db'
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     const reservation = req.body;
-    console.log('.....');
-    console.log(reservation);
     let { startTime, endTime, userId, roomId } = reservation;
     startTime = startTime.split('.')[0] + 'Z';
     endTime = endTime.split('.')[0] + 'Z';

@@ -15,3 +15,12 @@ const App = (): JSX.Element => {
 };
 
 export default App
+
+//TODO
+/*
+- Remove hardcoded user id when making a reservation
+- Add common appbar
+- Room card with pic?
+-
+
+ */
