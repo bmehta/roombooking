@@ -14,5 +14,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         res.status(200).json({ data: result })
     } catch ( error ) {
         console.log( error );
+        res.status(500).send(JSON.parse(JSON.stringify({ error: `Internal server error: ${error}` })) as JSON );
     }
 }

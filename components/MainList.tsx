@@ -20,19 +20,11 @@ export const MainList = () : JSX.Element => {
                         </ListItemButton>
                     </ListItem>
                     <ListItem disablePadding>
-                        <ListItemButton>
+                        <ListItemButton component="a" href="myreservations">
                             <ListItemIcon>
                                 <CalendarMonth/>
                             </ListItemIcon>
-                            <ListItemText primary="My Room Reservations" />
-                        </ListItemButton>
-                    </ListItem>
-                    <ListItem disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                <CalendarMonth/>
-                            </ListItemIcon>
-                            <ListItemText primary="Room Descriptions" />
+                            <ListItemText primary="My Reservations" />
                         </ListItemButton>
                     </ListItem>
                 </List>

@@ -19,8 +19,10 @@ export default App
 //TODO
 /*
 - Remove hardcoded user id when making a reservation
+- Error handling
+- Loading indicator
 - Add common appbar
 - Room card with pic?
--
-
+- Restricting user entered time on time picker
+- Data seeding for rooms in db
  */
