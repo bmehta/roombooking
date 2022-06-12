@@ -9,6 +9,7 @@ import { addHours, getHours } from 'date-fns'
 const Reserve = () : JSX.Element => {
 
     const router = useRouter();
+    const userId = router.query.userid;
 
     const [startTime, setStartTime] = useState<Date | null>(null);
     const [minEndTime, setMinEndTime] = useState<Date | null>(null);
@@ -18,6 +19,7 @@ const Reserve = () : JSX.Element => {
     const [error, setError] = useState<string | null>(null);
 
     const handleReserve = async (roomId) => {
+
         try {
             const response = await fetch('/api/reservation', {
                 method: 'POST',
@@ -29,11 +31,11 @@ const Reserve = () : JSX.Element => {
                     startTime,
                     endTime,
                     roomId,
-                    userId: 1
+                    userId
                 })
             });
             if (response.status === 200) {
-                router.push('/myreservations');
+                router.push(`/myreservations?userid=${userId}`);
                 return;
             } else {
                 setError(response.error);

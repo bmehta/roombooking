@@ -7,12 +7,16 @@ import ListItemText from '@mui/material/ListItemText';
 import BookOnline from '@mui/icons-material/BookOnline';
 import CalendarMonth from '@mui/icons-material/CalendarMonth';
 
-export const MainList = () : JSX.Element => {
+export const MainList = (props) : JSX.Element => {
+    const userId = props.userid;
+    const reserveLink = `reserve?userid=${userId}`;
+    const myReservationsLink =`myreservations?userid=${userId}`;
+
     return (
         <Box sx={{ width: '100%' }}>
                 <List>
                     <ListItem disablePadding>
-                        <ListItemButton component="a" href="reserve">
+                        <ListItemButton component="a" href={reserveLink}>
                             <ListItemIcon>
                                 <BookOnline/>
                             </ListItemIcon>
@@ -20,7 +24,7 @@ export const MainList = () : JSX.Element => {
                         </ListItemButton>
                     </ListItem>
                     <ListItem disablePadding>
-                        <ListItemButton component="a" href="myreservations">
+                        <ListItemButton component="a" href={myReservationsLink}>
                             <ListItemIcon>
                                 <CalendarMonth/>
                             </ListItemIcon>

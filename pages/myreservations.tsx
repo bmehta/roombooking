@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { Box, Grid, Typography, Button } from '@mui/material'
 
@@ -8,6 +9,8 @@ interface IReservation {
 }
 
 const Reserve =  () : JSX.Element => {
+    const router = useRouter();
+    const userId = router.query.userid;
 
     const [results, setResults] = useState<IReservation[] | null>(null);
     const [error, setError] = useState<string | null>(null);
@@ -25,9 +28,11 @@ const Reserve =  () : JSX.Element => {
                 setError(error);
             }
         }
-        fetchData();
+        if (router.query.userid) {
+            fetchData();
+        }
 
-    }, []);
+    }, [router]);
 
     const handleDelete = async (reservationId) => {
         try {
@@ -55,7 +60,7 @@ const Reserve =  () : JSX.Element => {
     };
 
     const handleSearch = async () => {
-        const response = await fetch('/api/myreservations?userid=1', {
+        const response = await fetch(`/api/myreservations?userid=${router.query.userid}`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
