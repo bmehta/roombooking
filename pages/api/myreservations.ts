@@ -9,7 +9,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     try {
         const result = await executeQuery({
-            query: 'select rr.id, r.name, rr.start_time, rr.end_time from reservations rr, rooms r where rr.room_id = r.id and rr.user_id = ? order by rr.start_time asc',
+            query: 'select rr.id, r.name, r.capacity, rr.start_time, rr.end_time from reservations rr, rooms r where rr.room_id = r.id and rr.user_id = ? order by rr.start_time asc',
             values: [ req.query.userid ]
         });
         res.status(200).json({ data: result })

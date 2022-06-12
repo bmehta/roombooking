@@ -106,6 +106,12 @@ const Reserve =  () : JSX.Element => {
                                             color: 'primary.contrastText',
                                             textTransform: 'uppercase',
                                             fontWeight: 'bold'
+                                        } }>Capacity</TableCell>
+                                        <TableCell align="left" sx={ {
+                                            backgroundColor: 'primary.dark',
+                                            color: 'primary.contrastText',
+                                            textTransform: 'uppercase',
+                                            fontWeight: 'bold'
                                         } }>Start Date</TableCell>
                                         <TableCell align="left" sx={ {
                                             backgroundColor: 'primary.dark',
@@ -125,6 +131,7 @@ const Reserve =  () : JSX.Element => {
                                     { results.map((result) => (
                                         <TableRow key={result.name}>
                                             <TableCell align="left">{result.name}</TableCell>
+                                            <TableCell align="left">{result.capacity}</TableCell>
                                             <TableCell align="left">{result.start_time}</TableCell>
                                             <TableCell align="left">{result.end_time}</TableCell>
                                             <TableCell align="left"><Button onClick={() => handleDelete(result.id)} variant="contained">Delete</Button></TableCell>
