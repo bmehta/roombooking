@@ -8,7 +8,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     try {
         const result = await executeQuery({
-            query: 'select r.id, r.name from rooms r where r.id not in ( select distinct(r.id) from rooms r, reservations rr where r.id = rr.room_id && rr.start_time=STR_TO_DATE(?, \'%Y-%m-%dT%TZ\') )',
+            query: 'select r.id, r.capacity, r.name from rooms r where r.id not in ( select distinct(r.id) from rooms r, reservations rr where r.id = rr.room_id && rr.start_time=STR_TO_DATE(?, \'%Y-%m-%dT%TZ\') )',
             values: [startTime]
         });
         res.status(200).json({ data: result })

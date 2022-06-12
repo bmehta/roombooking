@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import { Box, Container, Grid, Typography, Button, TextField } from '@mui/material'
+import { Box, Container, Grid, Typography, Button, TextField, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
@@ -121,16 +121,33 @@ const Reserve = () : JSX.Element => {
                         </Grid>
 
                         <Grid item xs={12}>
-                            { results && results.map((result) => (
-                                <div key={result.id}>
-                                    <div>{ result.name }</div>
-                                    <Button onClick={() => handleReserve(result.id)} variant="contained">Reserve</Button>
-                                </div>
-                            )
-                            )}
                             { results && !results.length && (
                                 <div>No results found</div>
                             )}
+                            { results && results.length > 0 &&
+                                <TableContainer component={Paper}>
+                                    <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                                        <TableHead>
+                                            <TableRow>
+                                                <TableCell align="right">Name</TableCell>
+                                                <TableCell align="right">Capacity</TableCell>
+                                                <TableCell align="right">Reserve</TableCell>
+                                            </TableRow>
+                                        </TableHead>
+                                        <TableBody>
+                                            { results.map((result) => (
+                                                <TableRow key={result.name}>
+                                                    <TableCell component="th" scope="row">
+                                                        {result.name}
+                                                    </TableCell>
+                                                    <TableCell align="right">{result.capacity}</TableCell>
+                                                    <TableCell align="right"><Button onClick={() => handleReserve(result.id)} variant="contained">Reserve</Button></TableCell>
+                                                </TableRow>
+                                            ))}
+                                        </TableBody>
+                                    </Table>
+                                </TableContainer>
+                            }
                         </Grid>
 
                     </LocalizationProvider>
