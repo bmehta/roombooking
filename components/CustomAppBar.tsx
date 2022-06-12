@@ -22,7 +22,7 @@ export const CustomAppBar = () : JSX.Element => {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        Cola Day Room Reservations!
+                        COLA Day Room Reservations!
                     </Typography>
                     <Link href="/" color="inherit">Home</Link>
                 </Toolbar>
