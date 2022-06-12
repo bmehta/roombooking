@@ -3,6 +3,7 @@ This is a demo room booking application powered by React, Next and MySQL.
 ## Prerequisites
 node v14 or later
 npm v6 or later
+mysql 8 or later
 
 ## Getting Started
 Clone the repo
@@ -13,6 +14,11 @@ git clone https://github.com/bmehta/roombooking.git
 Then, install dependencies
 ```bash
 npm i
+```
+
+Then, create a database called `roombooking` and use roombooking.sql in the root of the project to create the tables and seed the data. 
+```bash
+Use source roombooking.sql from the mysql prompot
 ```
 
 Then, run the development server:
