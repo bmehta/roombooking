@@ -1,7 +1,8 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { Box, Container, Grid, Typography, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material'
-import { CustomAppBar} from "../components/CustomAppBar";
+import { CustomAppBar} from '../components/CustomAppBar';
+import { format, parseISO } from 'date-fns'
 
 interface IReservation {
     name: string,
@@ -112,13 +113,13 @@ const Reserve =  () : JSX.Element => {
                                             color: 'primary.contrastText',
                                             textTransform: 'uppercase',
                                             fontWeight: 'bold'
-                                        } }>Start Date</TableCell>
+                                        } }>Start Time</TableCell>
                                         <TableCell align="left" sx={ {
                                             backgroundColor: 'primary.dark',
                                             color: 'primary.contrastText',
                                             textTransform: 'uppercase',
                                             fontWeight: 'bold'
-                                        } }>End Date</TableCell>
+                                        } }>End Time</TableCell>
                                         <TableCell align="left" sx={ {
                                             backgroundColor: 'primary.dark',
                                             color: 'primary.contrastText',
@@ -132,8 +133,8 @@ const Reserve =  () : JSX.Element => {
                                         <TableRow key={result.name}>
                                             <TableCell align="left">{result.name}</TableCell>
                                             <TableCell align="left">{result.capacity}</TableCell>
-                                            <TableCell align="left">{result.start_time}</TableCell>
-                                            <TableCell align="left">{result.end_time}</TableCell>
+                                            <TableCell align="left">{format(parseISO(result.start_time),'h aaa')}</TableCell>
+                                            <TableCell align="left">{format(parseISO(result.end_time), 'h aa')}</TableCell>
                                             <TableCell align="left"><Button onClick={() => handleDelete(result.id)} variant="contained">Delete</Button></TableCell>
                                         </TableRow>
                                     ))}
