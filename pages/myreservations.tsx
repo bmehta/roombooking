@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import { Box, Grid, Typography, Button } from '@mui/material'
+import { Box, Container, Grid, Typography, Button } from '@mui/material'
+import { CustomAppBar} from "../components/CustomAppBar";
 
 interface IReservation {
     name: string,
@@ -10,7 +11,6 @@ interface IReservation {
 
 const Reserve =  () : JSX.Element => {
     const router = useRouter();
-    const userId = router.query.userid;
 
     const [results, setResults] = useState<IReservation[] | null>(null);
     const [error, setError] = useState<string | null>(null);
@@ -77,23 +77,29 @@ const Reserve =  () : JSX.Element => {
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <Grid container spacing={1}>
-                <Grid item xs={12}>
-                    <Typography>Your reservations</Typography>
-                </Grid>
-                <Grid item xs={12}>
-                    { results && results.map((result) => (
-                            <div key={result.id}>
-                                <div>{ result.name } - {result.start_time} - {result.end_time}</div>
-                                <Button onClick={() => handleDelete(result.id)} variant="contained">Delete</Button>
-                            </div>
-                        )
+            <Container>
+                <CustomAppBar/>
+
+                <Grid container spacing={1}>
+                    { results && results.length > 0 && (
+                        <Grid item xs={12}>
+                            <Typography>Your reservations</Typography>
+                        </Grid>
                     )}
-                    { results && !results.length && (
-                        <div>You don't have any reservations</div>
-                    )}
+                    <Grid item xs={12}>
+                        { results && results.map((result) => (
+                                <div key={result.id}>
+                                    <div>{ result.name } - {result.start_time} - {result.end_time}</div>
+                                    <Button onClick={() => handleDelete(result.id)} variant="contained">Delete</Button>
+                                </div>
+                            )
+                        )}
+                        { results && !results.length && (
+                            <div>You don't have any reservations</div>
+                        )}
+                    </Grid>
                 </Grid>
-            </Grid>
+            </Container>
         </Box>
     )
 };

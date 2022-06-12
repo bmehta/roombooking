@@ -1,10 +1,11 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import { Box, Grid, Typography, Button, TextField } from '@mui/material'
+import { Box, Container, Grid, Typography, Button, TextField } from '@mui/material'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { addHours, getHours } from 'date-fns'
+import { CustomAppBar} from "../components/CustomAppBar";
 
 const Reserve = () : JSX.Element => {
 
@@ -74,64 +75,67 @@ const Reserve = () : JSX.Element => {
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={1}>
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <Grid item xs={12}>
-                    <Typography>Pick times to find rooms</Typography>
+            <Container>
+                <Grid container spacing={1}>
+                    <CustomAppBar/>
+                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                        <Grid item xs={12}>
+                            <Typography>Pick times to find rooms</Typography>
+                        </Grid>
+                        <Grid item xs={2}>
+
+                                <TimePicker
+                                    label="Start Time"
+                                    value={startTime}
+                                    views={['hours']}
+                                    sx={ {
+                                        marginRight: '100px'
+                                    }}
+                                    onChange={(newValue) => {
+                                        setMinEndTime(getHours(newValue) + 1);
+                                        setMaxEndTime(getHours(newValue) + 1);
+                                        setEndTime(addHours(newValue, 1));
+                                        setStartTime(newValue);
+                                    }}
+                                    renderInput={(params) => <TextField {...params} />}
+                                />
+
+                        </Grid>
+                        <Grid item xs={2}>
+
+                                <TimePicker
+                                    label="End Time"
+                                    value={endTime}
+                                    minTime = {new Date(0,0,0, minEndTime)}
+                                    maxTime = {new Date(0,0,0, maxEndTime)}
+                                    views={['hours']}
+                                    onChange={(newValue) => {
+                                        setEndTime(newValue);
+                                    }}
+                                    renderInput={(params) => <TextField {...params} />}
+                                />
+
+                        </Grid>
+                        <Grid item xs={2}>
+                                <Button variant="contained" onClick={handleSearch}>Search</Button>
+                        </Grid>
+
+                        <Grid item xs={12}>
+                            { results && results.map((result) => (
+                                <div key={result.id}>
+                                    <div>{ result.name }</div>
+                                    <Button onClick={() => handleReserve(result.id)} variant="contained">Reserve</Button>
+                                </div>
+                            )
+                            )}
+                            { results && !results.length && (
+                                <div>No results found</div>
+                            )}
+                        </Grid>
+
+                    </LocalizationProvider>
                 </Grid>
-                <Grid item xs={2}>
-
-                        <TimePicker
-                            label="Start Time"
-                            value={startTime}
-                            views={['hours']}
-                            sx={ {
-                                marginRight: '100px'
-                            }}
-                            onChange={(newValue) => {
-                                setMinEndTime(getHours(newValue) + 1);
-                                setMaxEndTime(getHours(newValue) + 1);
-                                setEndTime(addHours(newValue, 1));
-                                setStartTime(newValue);
-                            }}
-                            renderInput={(params) => <TextField {...params} />}
-                        />
-
-                </Grid>
-                <Grid item xs={2}>
-
-                        <TimePicker
-                            label="End Time"
-                            value={endTime}
-                            minTime = {new Date(0,0,0, minEndTime)}
-                            maxTime = {new Date(0,0,0, maxEndTime)}
-                            views={['hours']}
-                            onChange={(newValue) => {
-                                setEndTime(newValue);
-                            }}
-                            renderInput={(params) => <TextField {...params} />}
-                        />
-
-                </Grid>
-                <Grid item xs={2}>
-                        <Button variant="contained" onClick={handleSearch}>Search</Button>
-                </Grid>
-
-                <Grid item xs={12}>
-                    { results && results.map((result) => (
-                        <div key={result.id}>
-                            <div>{ result.name }</div>
-                            <Button onClick={() => handleReserve(result.id)} variant="contained">Reserve</Button>
-                        </div>
-                    )
-                    )}
-                    { results && !results.length && (
-                        <div>No results found</div>
-                    )}
-                </Grid>
-
-            </LocalizationProvider>
-        </Grid>
+            </Container>
         </Box>
     )
 };
