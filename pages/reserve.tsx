@@ -77,7 +77,7 @@ const Reserve = () : JSX.Element => {
         <Box sx={{ flexGrow: 1 }}>
             <Container>
                 <Grid container spacing={1}>
-                    <CustomAppBar/>
+                    <CustomAppBar userId={router.query.userid}/>
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                         <Grid item xs={12}>
                             <Typography>Pick times to find rooms</Typography>

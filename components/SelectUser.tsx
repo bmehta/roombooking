@@ -1,10 +1,14 @@
 import { Box, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
-import {useState} from "react";
-import {UserContext} from '../lib/usercontext.ts';
+import { useState, useEffect } from "react";
 
 export const SelectUser = (props) : JSX.Element => {
 
-    const [selectedUserId, setSelectedUserId] = useState<string>('');
+    const userId = props.userId? props.userId : '';
+    const [selectedUserId, setSelectedUserId] = useState<string>(userId);
+
+    useEffect(() => {
+        setSelectedUserId(props.userId);
+    }, [props.userId]);
 
     const handleChange = (event) => {
         setSelectedUserId(event.target.value);

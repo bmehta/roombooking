@@ -7,7 +7,9 @@ import Link from '@mui/material/Link';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 
-export const CustomAppBar = () : JSX.Element => {
+export const CustomAppBar = (props) : JSX.Element => {
+    const userId = props.userId;
+    const homeLink = userId ? `/?userid=${userId}` : '/';
     return (
         <Box sx={{ flexGrow: 1, marginBottom: 5, marginTop: 5 }}>
             <AppBar position="static">
@@ -24,7 +26,7 @@ export const CustomAppBar = () : JSX.Element => {
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         COLA Day Room Reservations!
                     </Typography>
-                    <Link href="/" color="inherit">Home</Link>
+                    <Link href={homeLink} color="inherit">Home</Link>
                 </Toolbar>
             </AppBar>
         </Box>

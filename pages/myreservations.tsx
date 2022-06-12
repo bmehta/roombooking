@@ -79,7 +79,7 @@ const Reserve =  () : JSX.Element => {
     return (
         <Box sx={{ flexGrow: 1 }}>
             <Container>
-                <CustomAppBar/>
+                <CustomAppBar userId={router.query.userid}/>
 
                 <Grid container spacing={1}>
                     { results && results.length > 0 && (
