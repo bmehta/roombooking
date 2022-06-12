@@ -26,4 +26,12 @@ yarn dev
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ### Running Tests
+For jest tests
+```bash
+npm run dev
+```
 
+For cypress tests (needs app running on localhost:3000)
+```bash
+npm run cypress
+```
