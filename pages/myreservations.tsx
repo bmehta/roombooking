@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import { Box, Container, Grid, Typography, Button } from '@mui/material'
+import { Box, Container, Grid, Typography, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material'
 import { CustomAppBar} from "../components/CustomAppBar";
 
 interface IReservation {
@@ -87,16 +87,53 @@ const Reserve =  () : JSX.Element => {
                         </Grid>
                     )}
                     <Grid item xs={12}>
-                        { results && results.map((result) => (
-                                <div key={result.id}>
-                                    <div>{ result.name } - {result.start_time} - {result.end_time}</div>
-                                    <Button onClick={() => handleDelete(result.id)} variant="contained">Delete</Button>
-                                </div>
-                            )
-                        )}
                         { results && !results.length && (
                             <div>You don't have any reservations</div>
                         )}
+                        { results && results.length > 0 &&
+                        <TableContainer component={Paper}>
+                            <Table>
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell align="left" sx={ {
+                                            backgroundColor: 'primary.dark',
+                                            color: 'primary.contrastText',
+                                            textTransform: 'uppercase',
+                                            fontWeight: 'bold'
+                                        } }>Room Name</TableCell>
+                                        <TableCell align="left" sx={ {
+                                            backgroundColor: 'primary.dark',
+                                            color: 'primary.contrastText',
+                                            textTransform: 'uppercase',
+                                            fontWeight: 'bold'
+                                        } }>Start Date</TableCell>
+                                        <TableCell align="left" sx={ {
+                                            backgroundColor: 'primary.dark',
+                                            color: 'primary.contrastText',
+                                            textTransform: 'uppercase',
+                                            fontWeight: 'bold'
+                                        } }>End Date</TableCell>
+                                        <TableCell align="left" sx={ {
+                                            backgroundColor: 'primary.dark',
+                                            color: 'primary.contrastText',
+                                            textTransform: 'uppercase',
+                                            fontWeight: 'bold'
+                                        } }>Delete</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    { results.map((result) => (
+                                        <TableRow key={result.name}>
+                                            <TableCell align="left">{result.name}</TableCell>
+                                            <TableCell align="left">{result.start_time}</TableCell>
+                                            <TableCell align="left">{result.end_time}</TableCell>
+                                            <TableCell align="left"><Button onClick={() => handleDelete(result.id)} variant="contained">Delete</Button></TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+                        }
                     </Grid>
                 </Grid>
             </Container>

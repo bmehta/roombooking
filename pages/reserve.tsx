@@ -129,17 +129,30 @@ const Reserve = () : JSX.Element => {
                                     <Table sx={{ minWidth: 650 }} aria-label="simple table">
                                         <TableHead>
                                             <TableRow>
-                                                <TableCell align="right">Name</TableCell>
-                                                <TableCell align="right">Capacity</TableCell>
-                                                <TableCell align="right">Reserve</TableCell>
+                                                <TableCell align="right" sx={ {
+                                                    backgroundColor: 'primary.dark',
+                                                    color: 'primary.contrastText',
+                                                    textTransform: 'uppercase',
+                                                    fontWeight: 'bold'
+                                                } }>Name</TableCell>
+                                                <TableCell align="right" sx={ {
+                                                    backgroundColor: 'primary.dark',
+                                                    color: 'primary.contrastText',
+                                                    textTransform: 'uppercase',
+                                                    fontWeight: 'bold'
+                                                } }>Capacity</TableCell>
+                                                <TableCell align="right" sx={ {
+                                                    backgroundColor: 'primary.dark',
+                                                    color: 'primary.contrastText',
+                                                    textTransform: 'uppercase',
+                                                    fontWeight: 'bold'
+                                                } }>Reserve</TableCell>
                                             </TableRow>
                                         </TableHead>
                                         <TableBody>
                                             { results.map((result) => (
                                                 <TableRow key={result.name}>
-                                                    <TableCell component="th" scope="row">
-                                                        {result.name}
-                                                    </TableCell>
+                                                    <TableCell>{result.name}</TableCell>
                                                     <TableCell align="right">{result.capacity}</TableCell>
                                                     <TableCell align="right"><Button onClick={() => handleReserve(result.id)} variant="contained">Reserve</Button></TableCell>
                                                 </TableRow>
