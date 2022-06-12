@@ -21,6 +21,8 @@ Then, create a database called `roombooking` and use roombooking.sql in the root
 Use source roombooking.sql from the mysql prompot
 ```
 
+Then, Rename the .env.example to .env.local and replace with your mysql information
+
 Then, run the development server:
 
 ```bash
