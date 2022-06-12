@@ -35,19 +35,4 @@ const App = (): JSX.Element => {
 
 export default App
 
-//TODO
-/*
-*- Remove hardcoded user id when making a reservation
-* Styling
-*- Indices, foreign keys on db tables
-*- Format dates on display
-- README update
-- Testing
-- Room card - add pic, description etc.
-- Error handling - handling is being done, display needs to happen
-- Loading indicator
-*- Add common appbar
-- Restricting user entered time on time picker
-*- Data seeding for rooms in db
 
- */
